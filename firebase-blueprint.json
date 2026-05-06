@@ -1,0 +1,53 @@
+{
+  "entities": {
+    "Insight": {
+      "title": "Insight",
+      "description": "A single learning insight",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "keepContent": { "type": "string" },
+        "improveContent": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "SubCategory": {
+      "title": "SubCategory",
+      "description": "A sub-category of insights",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "insights": { "type": "array", "$ref": "Insight" }
+      }
+    },
+    "Category": {
+      "title": "Category",
+      "description": "A main category containing sub-categories",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "icon": { "type": "string" },
+        "subCategories": { "type": "array", "$ref": "SubCategory" }
+      }
+    },
+    "AppState": {
+      "title": "AppState",
+      "description": "The complete state of the user's notebook",
+      "type": "object",
+      "properties": {
+        "categories": { "type": "array", "$ref": "Category" },
+        "recentCategoryIds": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  "firestore": {
+    "users/{userId}/app/state": {
+      "schema": "AppState",
+      "description": "User's monolithic app state"
+    }
+  }
+}

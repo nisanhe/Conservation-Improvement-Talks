@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&family=Rubik:wght@300;400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Heebo", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Rubik", ui-serif, Georgia, serif;
+  
+  --color-page-bg: #F5F7F9;
+  --color-notebook-paper: #ffffff;
+  --color-notebook-ink: #1A202C;
+  
+  --color-keep-bg: #E3F2FD;
+  --color-keep-text: #1976D2;
+  
+  --color-improve-bg: #FFF3E0;
+  --color-improve-text: #E65100;
+  
+  --color-accent-soft: #F0F4FF;
+  --color-accent-indigo: #4A5568;
+  --color-brand: #7C3AED;
+}
+
+@layer base {
+  body {
+    @apply bg-page-bg text-notebook-ink font-sans antialiased;
+    direction: rtl;
+    background-image: 
+      radial-gradient(#e5e7eb 0.5px, transparent 0.5px);
+    background-size: 24px 24px;
+  }
+}
+
+.notebook-card {
+  @apply bg-notebook-paper border border-stone-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 rounded-[2rem] relative overflow-hidden;
+}
+
+.serif-title {
+  @apply font-serif font-bold tracking-tight;
+}
+
+.markdown-body {
+  @apply text-stone-800;
+}
+
+.markdown-body h1 {
+  @apply text-2xl font-serif font-bold mt-4 mb-2 border-b border-stone-100 pb-1;
+}
+
+.markdown-body h2 {
+  @apply text-xl font-serif font-bold mt-4 mb-2;
+}
+
+.markdown-body p {
+  @apply mb-4 leading-relaxed;
+}
+
+.markdown-body ul {
+  @apply list-disc list-inside mb-4 space-y-1;
+}
+
+.markdown-body ol {
+  @apply list-decimal list-inside mb-4 space-y-1;
+}
+
+.markdown-body strong {
+  @apply font-bold text-stone-950;
+}
+
+.markdown-body blockquote {
+  @apply border-r-4 border-stone-200 pr-4 italic text-stone-600 my-4;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Quill Overrides */
+.quill-wrapper {
+  @apply rounded-2xl border border-stone-100 transition-all focus-within:border-stone-300 focus-within:shadow-sm relative;
+}
+
+.quill-wrapper .ql-container.ql-snow {
+  @apply border-none font-sans text-sm md:text-base bg-white rounded-b-2xl;
+  min-height: 120px;
+}
+
+.quill-wrapper .ql-toolbar.ql-snow {
+  @apply border-none bg-stone-50/50 backdrop-blur-sm border-b border-stone-100 flex items-center justify-start gap-1 p-2 rounded-t-2xl relative z-10;
+}
+
+.quill-wrapper .ql-toolbar.ql-snow .ql-formats {
+  @apply m-0 flex items-center gap-1;
+}
+
+.quill-wrapper .ql-toolbar.ql-snow button {
+  @apply rounded-lg transition-all hover:bg-white hover:text-brand border border-transparent hover:border-stone-200 w-9 h-9 flex items-center justify-center p-2;
+}
+
+.quill-wrapper .ql-toolbar.ql-snow button.ql-active {
+  @apply bg-brand text-white shadow-md border-brand;
+}
+
+.quill-wrapper .ql-toolbar.ql-snow .ql-stroke {
+  stroke: #78716c; /* stone-500 */
+  stroke-width: 2;
+  @apply transition-colors;
+}
+
+.quill-wrapper .ql-toolbar.ql-snow button:hover .ql-stroke {
+  stroke: #1c1917; /* stone-900 */
+}
+
+.quill-wrapper .ql-toolbar.ql-snow button.ql-active .ql-stroke {
+  stroke: white;
+}
+
+.quill-wrapper .ql-toolbar.ql-snow .ql-fill {
+  fill: #78716c;
+  @apply transition-colors;
+}
+
+.quill-wrapper .ql-toolbar.ql-snow button:hover .ql-fill {
+  fill: #1c1917;
+}
+
+.quill-wrapper .ql-toolbar.ql-snow button.ql-active .ql-fill {
+  fill: white;
+}
+
+.quill-wrapper .ql-toolbar.ql-snow .ql-picker.ql-background {
+  @apply w-9 h-9;
+}
+
+.quill-wrapper .ql-snow .ql-picker.ql-background .ql-picker-label {
+  @apply rounded-lg border border-transparent hover:border-stone-200 hover:bg-white transition-all p-2 flex items-center justify-center;
+}
+
+.quill-wrapper .ql-snow .ql-picker.ql-background .ql-picker-label .ql-stroke {
+  stroke: #78716c;
+}
+
+.quill-wrapper .ql-snow .ql-picker-options {
+  @apply border border-stone-100 shadow-xl rounded-xl p-2 mt-1 bg-white overflow-hidden z-[100] absolute opacity-0 pointer-events-none transition-all scale-95;
+  display: block !important;
+  left: 0 !important;
+  right: auto !important;
+  transform-origin: top left;
+}
+
+.quill-wrapper .ql-snow .ql-picker.ql-expanded .ql-picker-options {
+  @apply opacity-100 pointer-events-auto scale-100;
+}
+
+.quill-wrapper .ql-snow .ql-color-picker .ql-picker-options {
+  @apply w-[140px] grid grid-cols-4 gap-1;
+}
+
+.quill-wrapper .ql-snow .ql-color-picker .ql-picker-item {
+  @apply w-6 h-6 rounded-md border border-stone-100 transition-transform hover:scale-110;
+}
+
+.quill-wrapper .ql-editor {
+  @apply p-4 min-h-[120px] text-right leading-relaxed;
+  direction: rtl;
+}
+
+/* Fix for Quill Lists in RTL */
+.quill-wrapper .ql-editor li {
+  padding-right: 2.5em !important;
+  padding-left: 0 !important;
+}
+
+.quill-wrapper .ql-editor li::before {
+  margin-right: -2em !important;
+  margin-left: 0.5em !important;
+  text-align: left !important;
+  display: inline-block !important;
+  width: 1.5em !important;
+}
+
+.quill-wrapper .ql-editor.ql-blank::before {
+  display: none !important;
+}
+
+.quill-wrapper .ql-editor:not(.ql-blank)::before {
+  display: none !important;
+}
+
+.rich-content u {
+  @apply underline underline-offset-4 decoration-stone-300;
+}
+
+.rich-content ul, .rich-content ol {
+  @apply pr-1 mb-4 space-y-2;
+}
+
+.rich-content li {
+  @apply relative pr-8 text-stone-600 leading-relaxed;
+}
+
+.rich-content ul li::before {
+  content: "•";
+  @apply absolute right-2 text-stone-300 font-bold text-lg;
+}
+
+.rich-content ol {
+  counter-reset: item;
+  list-style-type: none;
+}
+
+.rich-content ol li::before {
+  content: counter(item) ".";
+  counter-increment: item;
+  @apply absolute right-0 text-stone-300 font-mono text-xs mt-0.5 w-6 text-left;
+}
+
+.rich-content .ql-bg-yellow { background-color: #fef08a; }
+.rich-content .ql-bg-green { background-color: #bbf7d0; }
+.rich-content .ql-bg-blue { background-color: #bfdbfe; }
+.rich-content .ql-bg-red { background-color: #fecaca; }
+.rich-content .ql-bg-orange { background-color: #fed7aa; }
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-stone-200 rounded-full;
+}
