@@ -11,18 +11,30 @@ service cloud.firestore {
     }
 
     function isOwner(userId) {
-      return isSignedIn() && request.auth.uid == userId;
+      return isSignedIn() && request.auth.uid == userId && request.auth.token.email_verified == true;
     }
 
     function isValidId(id) {
-      return id is string && id.size() <= 128;
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function isValidAppState(data) {
+      return data.keys().hasAll(['categories']) &&
+             data.categories is list &&
+             data.categories.size() <= 100;
     }
 
     match /users/{userId} {
-      allow get, write: if isOwner(userId);
+      allow get: if isValidId(userId) && isOwner(userId);
       
       match /app/state {
-        allow read, write: if isOwner(userId);
+        allow read: if isValidId(userId) && isOwner(userId);
+        allow create: if isValidId(userId) && isOwner(userId) && isValidAppState(incoming());
+        allow update: if isValidId(userId) && isOwner(userId) && isValidAppState(incoming());
       }
     }
   }

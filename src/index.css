@@ -21,21 +21,35 @@
 }
 
 @layer base {
+  html, body {
+    @apply h-full overflow-x-hidden;
+  }
   body {
-    @apply bg-page-bg text-notebook-ink font-sans antialiased;
+    @apply bg-page-bg text-notebook-ink font-sans antialiased h-full;
     direction: rtl;
     background-image: 
       radial-gradient(#e5e7eb 0.5px, transparent 0.5px);
     background-size: 24px 24px;
+    margin: 0;
+  }
+  input, textarea, [contenteditable] {
+    text-align: right;
+    direction: rtl;
+    unicode-bidi: plaintext;
   }
 }
 
 .notebook-card {
-  @apply bg-notebook-paper border border-stone-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 rounded-[2rem] relative overflow-hidden;
+  @apply bg-notebook-paper border border-stone-100 shadow-sm hover:shadow-md transition-all duration-300 rounded-2xl relative overflow-hidden;
 }
 
 .serif-title {
   @apply font-serif font-bold tracking-tight;
+}
+
+/* Ensure placeholder text also respects RTL/LTR where needed */
+input::placeholder {
+  text-align: right;
 }
 
 .markdown-body {
@@ -166,6 +180,7 @@
 .quill-wrapper .ql-editor {
   @apply p-4 min-h-[120px] text-right leading-relaxed;
   direction: rtl;
+  unicode-bidi: plaintext;
 }
 
 /* Fix for Quill Lists in RTL */

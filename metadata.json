@@ -2,5 +2,5 @@
   "name": "מחברת צמיחה דיגיטלית",
   "description": "מחברת היררכית לניהול משוב אישי וצמיחה, עם חלוקה לנושאי עבודה, פרויקטים וחיים אישיים.",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
